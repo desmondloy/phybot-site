@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhyBot – SP Physics Copilot</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #copilot-chat {
+      width: 100%;
+      max-width: 600px;
+      height: 700px;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div id="copilot-chat"></div>
+
+  <!-- Microsoft 365 Agents SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@microsoft/agents-sdk@latest"></script>
+
+  <script>
+    (async () => {
+      try {
+        const agent = await window.MicrosoftAgents.createAgent({
+          connectionString: "https://b4c6728b762ae992b49f9cb998df2e.8f.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/crfb9_phyBot/conversations?api-version=2022-03-01-preview"
+        });
+        agent.renderChat("#copilot-chat");
+      } catch (error) {
+        console.error("Error initializing PhyBot:", error);
+        document.getElementById("copilot-chat").innerHTML =
+          "<p style='color:red;padding:20px;'>Unable to load PhyBot. Please check your connection string or SDK permissions.</p>";
+      }
+    })();
+  </script>
+</body>
+</html>
